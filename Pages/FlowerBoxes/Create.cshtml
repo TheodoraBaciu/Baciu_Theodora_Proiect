@@ -1,0 +1,83 @@
+﻿@page
+@model Baciu_Theodora_Proiect.Pages.FlowerBoxes.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>FlowerBox</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FlowerBox.Series" class="control-label"></label>
+                <input asp-for="FlowerBox.Series" class="form-control" />
+                <span asp-validation-for="FlowerBox.Series" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FlowerBox.Brand" class="control-label"></label>
+                <input asp-for="FlowerBox.Brand" class="form-control" />
+                <span asp-validation-for="FlowerBox.Brand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FlowerBox.Price" class="control-label"></label>
+                <input asp-for="FlowerBox.Price" class="form-control" />
+                <span asp-validation-for="FlowerBox.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FlowerBox.AparitionDate" class="control-label"></label>
+                <input asp-for="FlowerBox.AparitionDate" class="form-control" />
+                <span asp-validation-for="FlowerBox.AparitionDate" class="textdanger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FlowerBox.Size" class="control-label"></label>
+                <input asp-for="FlowerBox.Size" class="form-control" />
+                <span asp-validation-for="FlowerBox.Size" class="textdanger"></span>
+            </div>
+
+            <label asp-for="FlowerBox.StoreID" class="control-label">Store Name</label>
+            <select asp-for="FlowerBox.StoreID" class="form-control" asp-items="ViewBag.StoreID"></select>
+            <span asp-validation-for="FlowerBox.StoreID" class="text-danger"></span>
+            <<div class="form-group">
+                <div class="table">
+                    <table>
+                        <tr>
+                            @{ int cnt = 0;
+                                            foreach (var cat in Model.AssignedCategoryDataList)
+                                            {
+                                                if (cnt++ % 3 == 0)
+                                                {
+                            @:</tr><tr>
+                            }
+            @:<td>
+                <input type="checkbox"
+                       name="selectedCategories"
+                       value="@cat.CategoryID"
+                       @(Html.Raw(cat.Assigned ? "checked=\"checked\"" : "")) />
+                                @cat.CategoryID @: @cat.Name
+                            @:</td>
+                        }
+        @:</tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-page="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
